@@ -1,0 +1,22 @@
+{
+  "name": "drone-stabilization_webapi",
+  "version": "1.0.0",
+  "description": "WebAPI for the drone-Stabilization system",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jannikschwarz/Drone-Stabilization_WebAPI.git"
+  },
+  "author": "Jannik Schwarz-Wolf",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jannikschwarz/Drone-Stabilization_WebAPI/issues"
+  },
+  "homepage": "https://github.com/jannikschwarz/Drone-Stabilization_WebAPI#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

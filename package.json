@@ -4,7 +4,8 @@
   "description": "WebAPI for the drone-Stabilization system",
   "main": "index.js",
   "scripts": {
-    "test": "test",
+    "start": "node ./app.js",
+    "test": "",
     "dev": "nodemon ./app.js"
   },
   "repository": {

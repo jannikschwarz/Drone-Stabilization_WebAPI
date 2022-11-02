@@ -1,11 +1,27 @@
 
-const {checkDeviceID,sendSessionData} = require('../lib/repository.js');
-async function runSession(req, res){
-    const session = {
-        deviceId: req.body.deviceId,
-        deviceName: req.body.deviceName, 
-        sessionId: req.body.sessionId
+const {checkDeviceID,sendSessionData,initializeDB} = require('../lib/repository.js');
+
+async function initializeRun(app){
+    initializeDB(app);
+}
+
+async function startSession(req, res){
+    const drone = {
+        deviceID: req.body.deviceId,
+        deviceName: req.body.deviceName
     }
+
+    if(checkDeviceID(drone)){
+        res.status(200);
+        res.send();
+    }else{
+        res.status(401).send('Invalid DeviceID');
+    }
+}
+
+async function runSession(req, res){
+    const sessionId = req.body.sessionId;
+    const deviceID = req.body.deviceId;
 
     const sessionData = {
         timestamp: req.body.timestamp,
@@ -21,20 +37,18 @@ async function runSession(req, res){
         }
     }
 
-    if(checkDeviceID(session)){
-        try{
-            await sendSessionData(sessionData, session.deviceId);
-            res.status(200);
-            res.send()
-        }catch(error){
-            res.status(400);
-            res.send(error.message)
-        }
-    }else{
-        res.status(401).send('Invalid DeviceID');
+    try{
+        await sendSessionData(sessionData, deviceID, sessionId);
+        res.status(200);
+        res.send()
+    }catch(error){
+        res.status(400);
+        res.send(error.message)
     }
 }
 
 module.exports = {
-    runSession
+    runSession,
+    startSession,
+    initializeRun
 }

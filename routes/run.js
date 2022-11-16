@@ -24,7 +24,7 @@ async function runSession(req, res){
     const deviceID = req.body.deviceId;
 
     const sessionData = {
-        timestamp: req.body.timestamp,
+        timestamp: '',
         temperature: req.body.temperature,
         location: {
             long: req.body.location.long,

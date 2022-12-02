@@ -37,13 +37,16 @@ async function runSession(req, res){
         }
     }
 
+    
     try{
+        sessionData.timestamp = Date.now();
         await sendSessionData(sessionData, deviceID, sessionId);
         res.status(200);
-        res.send()
-    }catch(error){
-        res.status(400);
-        res.send(error.message)
+        res.send();
+    } catch(error){
+        res.status(500);
+        res.send(error.message);
+        
     }
 }
 

@@ -2,7 +2,7 @@ const bodyParser = require('body-parser')
 const morgan = require('morgan')
 const express = require('express')
 const cors = require('cors')
-const {runSession, startSession, initializeRun} = require('./routes/run.js')
+const {runSession, startSession, addDroneCall, initializeRun} = require('./routes/run.js')
 const { initializeApp } = require('firebase/app')
 require('dotenv').config()
 
@@ -41,7 +41,6 @@ app.use(cors());
 //Run route 
 app.post('/run', runSession)
 app.post('/run/start', startSession)
-
 //Instantiate 
 initialize().then(() => {
     // Listen

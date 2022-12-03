@@ -39,7 +39,8 @@ app.use(cors());
 
 //Route 
 //Run route 
-app.post('/run', runSession)
+app.post('/run', runSession);
+
 app.post('/run/start', startSession)
 //Instantiate 
 initialize().then(() => {

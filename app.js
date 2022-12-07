@@ -2,6 +2,7 @@ const bodyParser = require('body-parser')
 const morgan = require('morgan')
 const express = require('express')
 const cors = require('cors')
+const fs = require('fs');
 const {runSession, startSession, addDroneCall, initializeRun} = require('./routes/run.js')
 const { initializeApp } = require('firebase/app')
 require('dotenv').config()
@@ -41,7 +42,19 @@ app.use(cors());
 //Run route 
 app.post('/run', runSession);
 
-app.post('/run/start', startSession)
+app.post('/run/start', startSession);
+
+app.get('/docs', (req, res) => {
+  console.log('alright')
+  try {
+    const data = fs.readFileSync('./openapi.yaml', 'utf8');
+    console.log('good')
+    res.status(200).send(data);
+  } catch (err) {
+    res.status(500).send("Unable to get docs");
+  }
+});
+
 //Instantiate 
 initialize().then(() => {
     // Listen

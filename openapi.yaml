@@ -1,0 +1,84 @@
+openapi: 3.0.3
+info:
+  title: Drone Stabilization and Development Kit (DS&DK)
+  description: A tool for developing new drones
+  version: 1.0.0
+servers:
+  - url: https://drone-stabilization-367016.ey.r.appspot.com
+    description: API server URL
+tags:
+  - name: API
+paths:
+  /run:
+    post:
+      tags:
+        - API
+      summary: Upload session data from a run
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              $ref: "#/components/schemas/Session"
+      responses:
+        200:
+          description: Session data was successfully uploaded
+        400:
+          description: Invalid request
+        500:
+          description: Internal server error
+  /run/start:
+    post:
+      tags:
+        - API
+      summary: Initialize a new run if needed
+      responses:
+        200:
+          description: New session initialized
+  /docs:
+    get:
+      tags:
+        - API
+      summary: Get OpenAPI documentation
+      responses:
+        200:
+          description: Return Open API documentation
+components:
+  schemas:
+    Session:
+      type: object
+      properties:
+        sessionId:
+          type: string
+          example: test-run-1
+        deviceId:
+          type: string
+          example: ESP-boi
+        temperature:
+          type: number
+          example: 22.5
+        location:
+          $ref: '#/components/schemas/Location'
+        rotation:
+          $ref: '#/components/schemas/Rotation'
+          
+    Location:
+      properties:
+        lat:
+          type: number
+          example: 56.1312114
+        long:
+          type: number
+          example: 10.160214
+    Rotation:
+      type: object
+      properties:
+        x:
+          type: number
+          example: 5.20
+        y:
+          type: number
+          example: -0.21
+        z:
+          type: number
+          example: 0.55

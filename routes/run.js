@@ -20,21 +20,29 @@ async function startSession(req, res){
 }
 
 async function runSession(req, res){
-    const sessionId = req.body.sessionId;
-    const deviceID = req.body.deviceId;
+    let sessionId;
+    let deviceID;
+    let sessionData;
+    try {
+        sessionId = req.body.sessionId;
+        deviceID = req.body.deviceId;
 
-    const sessionData = {
-        timestamp: '',
-        temperature: req.body.temperature,
-        location: {
-            long: req.body.location.long,
-            lat: req.body.location.lat
-        },
-        rotation: {
-            x: req.body.rotation.x,
-            y: req.body.rotation.y,
-            z: req.body.rotation.z
+        sessionData = {
+            timestamp: '',
+            temperature: req.body.temperature,
+            location: {
+                long: req.body.location.long,
+                lat: req.body.location.lat
+            },
+            rotation: {
+                x: req.body.rotation.x,
+                y: req.body.rotation.y,
+                z: req.body.rotation.z
+            }
         }
+    } catch (error) {
+        res.status(400).send('Invalid data');
+        return;
     }
 
     
